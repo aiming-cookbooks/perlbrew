@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/aiming-cookbooks/perlbrew.png?branch=master)](https://travis-ci.org/aiming-cookbooks/perlbrew)
+
 perlbrew cookbook
 =================
 
