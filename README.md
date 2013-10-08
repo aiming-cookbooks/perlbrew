@@ -223,3 +223,7 @@ Usage
 If you wish to use the LWRP, be sure to include the `perlbrew` recipe, which
 ensures that perlbrew is ready for use.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aiming-cookbooks/perlbrew/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
