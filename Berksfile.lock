@@ -1,0 +1,16 @@
+{
+  "sources": {
+    "perlbrew": {
+      "path": "."
+    },
+    "apt-get-update": {
+      "path": "./site-cookbooks/apt-get-update"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "apt": {
+      "locked_version": "2.3.0"
+    }
+  }
+}
