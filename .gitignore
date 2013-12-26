@@ -2,3 +2,6 @@
 .kitchen.local.yml
 .bundle/
 vendor/
+
+*.swp
+*.swo
