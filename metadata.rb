@@ -11,4 +11,8 @@ recipe           "perlbrew::default", "Installs/updates perlbrew"
   supports os
 end
 
+depends "apt"
+depends "yum"
+depends "yum-centos"
+depends "yum-epel"
 depends "build-essential"
