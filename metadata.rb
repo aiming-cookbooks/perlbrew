@@ -12,7 +12,5 @@ recipe           "perlbrew::default", "Installs/updates perlbrew"
 end
 
 depends "apt"
-depends "yum"
-depends "yum-centos"
-depends "yum-epel"
+depends "yum", ">= 3.0.0"
 depends "build-essential"
