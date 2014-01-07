@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "yum::remi"
+include_recipe "yum"
+include_recipe "yum-remi"
 include_recipe "build-essential"
 
 %w{ patch perl curl }.each do |p|
