@@ -2,7 +2,7 @@ name             "perlbrew"
 maintainer       "Aiming Inc."
 maintainer_email "info@aiming-inc.com"
 license          "Apache 2.0"
-version          "0.2.0"
+version          "0.2.1"
 description      "Installs/Configures perlbrew"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 recipe           "perlbrew::default", "Installs/updates perlbrew"
