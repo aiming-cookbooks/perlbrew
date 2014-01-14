@@ -21,7 +21,7 @@
 # sets PERLBREW_ROOT
 node.default['perlbrew']['perlbrew_root'] = '/opt/perlbrew'
 # list of perls to install in perlbrew recipe, e.g. ["perl-5.14.2", ...]
-node.default['perlbrew']['perls'] = ['perl-5.18.0']
+node.default['perlbrew']['perls'] = ['perl-5.18.2']
 # default command line options for "perlbrew install" if no LWRP options
 # attribute is given
 node.default['perlbrew']['install_options'] = '-j 4'
