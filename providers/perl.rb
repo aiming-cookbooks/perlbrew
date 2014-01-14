@@ -25,11 +25,11 @@ include Chef::Mixin::ShellOut
 action :install do
   unless @perl.installed
     new_resource.version(new_resource.name) if not new_resource.version
-    new_resource.install_options(node['perlbrew']['install_options']) if not new_resource.install_options
+    new_resource.install_options(node.default['perlbrew']['install_options']) if not new_resource.install_options
     
     e = execute "Install perlbrew perl #{new_resource.name} #{new_resource.install_options}" do
-      environment ({'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root']})
-      command "#{node['perlbrew']['perlbrew_root']}/bin/perlbrew install #{new_resource.version} --as #{new_resource.name} #{new_resource.install_options}"
+      environment ({'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root']})
+      command "#{node.default['perlbrew']['perlbrew_root']}/bin/perlbrew install #{new_resource.version} --as #{new_resource.name} #{new_resource.install_options}"
       action :nothing
     end
     e.run_action(:run)
@@ -41,8 +41,8 @@ end
 action :remove do
   if @perl.installed
     e = execute "Remove perlbrew perl #{new_resource.name}" do
-      environment ({'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root']})
-      command "#{node['perlbrew']['perlbrew_root']}/bin/perlbrew uninstall #{new_resource.name}"
+      environment ({'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root']})
+      command "#{node.default['perlbrew']['perlbrew_root']}/bin/perlbrew uninstall #{new_resource.name}"
       action :nothing
     end
     e.run_action(:run)
@@ -53,5 +53,5 @@ end
 
 def load_current_resource
   @perl = Chef::Resource::PerlbrewPerl.new(new_resource.name)
-  @perl.installed(::File.exists?("#{node['perlbrew']['perlbrew_root']}/perls/#{@perl.name}"))
+  @perl.installed(::File.exists?("#{node.default['perlbrew']['perlbrew_root']}/perls/#{@perl.name}"))
 end

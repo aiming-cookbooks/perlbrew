@@ -24,10 +24,10 @@ include Chef::Mixin::ShellOut
 
 action :install do
   perlbrew_env = {
-    'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root'],
-    'PERLBREW_HOME' => node['perlbrew']['perlbrew_root']
+    'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root'],
+    'PERLBREW_HOME' => node.default['perlbrew']['perlbrew_root']
   }
-  options = new_resource.options ? new_resource.options : node['perlbrew']['cpanm_options']
+  options = new_resource.options ? new_resource.options : node.default['perlbrew']['cpanm_options']
   new_resource.modules([new_resource.name]) unless new_resource.modules.length > 0
   p = perlbrew_run "cpanm #{options} #{new_resource.modules.join(' ')}" do
     perlbrew new_resource.perlbrew

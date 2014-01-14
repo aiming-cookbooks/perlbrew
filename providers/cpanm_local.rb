@@ -8,8 +8,8 @@ include Chef::Mixin::ShellOut
 
 action :install do
   perlbrew_env = {
-    'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root'],
-    'PERLBREW_HOME' => node['perlbrew']['perlbrew_root']
+    'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root'],
+    'PERLBREW_HOME' => node.default['perlbrew']['perlbrew_root']
   }
 
   pl = perlbrew_run "cpanm -n --installdeps ." do

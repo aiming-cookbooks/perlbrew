@@ -25,14 +25,14 @@ include Chef::Mixin::ShellOut
 # XXX must be a fully qualified 'perl-5.X.Y@libname' style name
 action :run do
   perlbrew_env = {
-    'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root'],
-    'PERLBREW_HOME' => node['perlbrew']['perlbrew_root']
+    'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root'],
+    'PERLBREW_HOME' => node.default['perlbrew']['perlbrew_root']
   }
   b = bash new_resource.name do
     environment new_resource.environment.merge(perlbrew_env)
     cwd new_resource.cwd if new_resource.cwd
     code <<-EOC
-    source #{node['perlbrew']['perlbrew_root']}/etc/bashrc
+    source #{node.default['perlbrew']['perlbrew_root']}/etc/bashrc
     perlbrew use #{new_resource.perlbrew}
     #{new_resource.command}
     EOC
