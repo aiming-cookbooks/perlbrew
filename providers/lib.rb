@@ -35,10 +35,10 @@ action :create do
   unless @lib.created
     e = execute "Create perlbrew lib #{new_resource.name}" do
       environment ({
-        'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root'],
-        'PERLBREW_HOME' => node['perlbrew']['perlbrew_root']
+        'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root'],
+        'PERLBREW_HOME' => node.default['perlbrew']['perlbrew_root']
       })
-      command "#{node['perlbrew']['perlbrew_root']}/bin/perlbrew lib create #{new_resource.name}"
+      command "#{node.default['perlbrew']['perlbrew_root']}/bin/perlbrew lib create #{new_resource.name}"
       action :nothing
     end
     e.run_action(:run)
@@ -52,10 +52,10 @@ action :delete do
   if @lib.created
     e = execute "Remove perlbrew #{new_resource.name}" do
       environment ({
-        'PERLBREW_ROOT' => node['perlbrew']['perlbrew_root'],
-        'PERLBREW_HOME' => node['perlbrew']['perlbrew_root']
+        'PERLBREW_ROOT' => node.default['perlbrew']['perlbrew_root'],
+        'PERLBREW_HOME' => node.default['perlbrew']['perlbrew_root']
       })
-      command "#{node['perlbrew']['perlbrew_root']}/bin/perlbrew lib delete #{new_resource.name}"
+      command "#{node.default['perlbrew']['perlbrew_root']}/bin/perlbrew lib delete #{new_resource.name}"
       action :nothing
     end
     e.run_action(:run)
@@ -66,6 +66,6 @@ end
 def load_current_resource
   @lib = Chef::Resource::PerlbrewLib.new(new_resource.name)
   @lib.perlbrew(@lib.name[/[^@]+/])
-  @lib.perlbrew_installed(::File.exists?("#{node['perlbrew']['perlbrew_root']}/perls/#{@lib.perlbrew}"))
-  @lib.created(::File.exists?("#{node['perlbrew']['perlbrew_root']}/libs/#{@lib.name}"))
+  @lib.perlbrew_installed(::File.exists?("#{node.default['perlbrew']['perlbrew_root']}/perls/#{@lib.perlbrew}"))
+  @lib.created(::File.exists?("#{node.default['perlbrew']['perlbrew_root']}/libs/#{@lib.name}"))
 end
