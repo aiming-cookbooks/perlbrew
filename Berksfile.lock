@@ -12,7 +12,7 @@
       "path": "./site-cookbooks/apt-get-update"
     },
     "apt": {
-      "locked_version": "2.3.0"
+      "locked_version": "2.3.4"
     },
     "yum": {
       "locked_version": "3.0.4"
