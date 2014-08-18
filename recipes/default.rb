@@ -20,16 +20,15 @@
 case node['platform_family']
     when 'debian'
         include_recipe "apt"
-        include_recipe "build-essential"
     when 'rhel','fedora'
         include_recipe "yum"
         include_recipe "yum-remi"
-        include_recipe "build-essential"
     else
         Chef::Log.error "Platform #{node['plaform_family']} not supported"
         return
 end
 
+include_recipe "build-essential"
 
 %w{ patch perl curl }.each do |p|
   package p
