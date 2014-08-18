@@ -17,15 +17,25 @@
 # limitations under the License.
 #
 
-include_recipe "yum"
-include_recipe "yum-remi"
-include_recipe "build-essential"
+case node['platform_family']
+    when 'debian'
+        include_recipe "apt"
+        include_recipe "build-essential"
+    when 'rhel','fedora'
+        include_recipe "yum"
+        include_recipe "yum-remi"
+        include_recipe "build-essential"
+    else
+        Chef::Log.error "Platform #{node['plaform_family']} not supported"
+        return
+end
+
 
 %w{ patch perl curl }.each do |p|
   package p
 end
 
-perlbrew_root = noded['perlbrew']['perlbrew_root']
+perlbrew_root = node['perlbrew']['perlbrew_root']
 perlbrew_bin = "#{perlbrew_root}/bin/perlbrew"
 
 directory perlbrew_root
