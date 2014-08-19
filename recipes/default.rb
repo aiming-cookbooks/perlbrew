@@ -17,15 +17,24 @@
 # limitations under the License.
 #
 
-include_recipe "yum"
-include_recipe "yum-remi"
+case node['platform_family']
+    when 'debian'
+        include_recipe "apt"
+    when 'rhel','fedora'
+        include_recipe "yum"
+        include_recipe "yum-remi"
+    else
+        Chef::Log.error "Platform #{node['plaform_family']} not supported"
+        return
+end
+
 include_recipe "build-essential"
 
 %w{ patch perl curl }.each do |p|
   package p
 end
 
-perlbrew_root = node.default['perlbrew']['perlbrew_root']
+perlbrew_root = node['perlbrew']['perlbrew_root']
 perlbrew_bin = "#{perlbrew_root}/bin/perlbrew"
 
 directory perlbrew_root
@@ -38,7 +47,7 @@ bash "perlbrew self-upgrade" do
   #{perlbrew_bin} -f install-patchperl
   #{perlbrew_bin} -f install-cpanm
   EOC
-  only_if {::File.exists?(perlbrew_bin) and node.default['perlbrew']['self_upgrade']}
+  only_if {::File.exists?(perlbrew_bin) and node['perlbrew']['self_upgrade']}
 end
 
 # if not, install it
@@ -54,8 +63,8 @@ bash "perlbrew-install" do
 end
 
 # were any perls requested in attributes?
-if node.default['perlbrew']['perls']
-  node.default['perlbrew']['perls'].each do |p|
+if node['perlbrew']['perls']
+  node['perlbrew']['perls'].each do |p|
     perlbrew_perl p do
       action :install
     end
